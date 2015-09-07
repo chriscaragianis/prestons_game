@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Phaser - Making your first game, part 1</title>
+    <script src="//cdn.jsdelivr.net/phaser/2.2.2/phaser.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript">
+
+var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+
+
+function preload() {
+  back = game.load.image('back', 'assets/backgroundTest.png');
+  badguy = game.load.image('badguy', 'assets/badguyTest.png');
+}
+
+function create() {
+  game.add.sprite(0, 0, 'back');
+  game.world.setBounds(0,0,1600,600);
+  baddie = game.add.sprite(50, 300, 'badguy');
+  game.physics.startSystem(Phaser.Physics.P2JS);
+  game.physic:s.p2.enable(baddie);
+  game.camera.follow(baddie);
+  baddie.body.collideWorldBouds = true;
+}
+
+function update() {
+  cursors = game.input.keyboard.createCursorKeys();
+  baddie.body.velocity.x = 0;
+  if (cursors.right.isDown){
+    baddie.body.velocity.x = 150;
+  } 
+  if (cursors.left.isDown){
+    baddie.body.velocity.x = -150;
+  } 
+}
+
+</script>
+
+</body>
+</html>
