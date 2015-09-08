@@ -1,17 +1,25 @@
 var game = new Phaser.Game(800, 600, Phaser.CANVAS, '', { preload: preload, create: create, update: update });
 
 function preload() {
-  game.load.image('back', 'assets/backgroundTest.png');
+  game.load.image('back', 'assets/sky.png');
   game.load.image('badguy', 'assets/badguyTest.png');
   game.load.image('ground', 'assets/ground.png');
+  game.load.image('grass1', 'assets/grass1.png');
+  game.load.image('grass2', 'assets/grass2.png');
+  game.load.image('grass3', 'assets/grass3.png');
+  game.load.image('grass4', 'assets/grass4.png');
 }
 
 function create() {
   game.world.setBounds(0,0,5600,600);
 
   sky = game.add.tileSprite( 0, 0, 5600, 800, 'back');
+  g4 = game.add.tileSprite(0, 360, 5600, 100, 'grass4');
+  g3 = game.add.tileSprite(0, 380, 5600, 100, 'grass3');
+  g2 = game.add.tileSprite(0, 410, 5600, 100, 'grass2');
+  g1 = game.add.tileSprite(0, 450, 5600, 100, 'grass1');
   dirt = game.add.tileSprite(0, 500, 5600, 100, 'ground');
-  baddie = game.add.sprite(50, 400, 'badguy');
+  baddie = game.add.sprite(400, 400, 'badguy');
 
   game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -41,5 +49,10 @@ function update() {
   }
 
   sky.tilePosition.x = -(game.camera.x * 0.22);
-  dirt.tilePosition.x = -(game.camera.x * 0.52);
+  dirt.tilePosition.x = -(game.camera.x * 1);
+  g1.tilePosition.x = -(game.camera.x * 0.8);
+  g2.tilePosition.x = -(game.camera.x * 0.6);
+  g3.tilePosition.x = -(game.camera.x * 0.4);
+  g4.tilePosition.x = -(game.camera.x * 0.2);
+
 }
