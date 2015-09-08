@@ -2,12 +2,13 @@ var game = new Phaser.Game(800, 600, Phaser.CANVAS, '', { preload: preload, crea
 
 function preload() {
   game.load.image('back', 'assets/sky.png');
-  game.load.image('badguy', 'assets/badguyTest.png');
+  game.load.spritesheet('badguy', 'assets/pguy.png',32,50);
   game.load.image('ground', 'assets/ground.png');
   game.load.image('grass1', 'assets/grass1.png');
   game.load.image('grass2', 'assets/grass2.png');
   game.load.image('grass3', 'assets/grass3.png');
   game.load.image('grass4', 'assets/grass4.png');
+  game.load.image('house', 'assets/house.png');
 }
 
 function create() {
@@ -25,7 +26,9 @@ function create() {
 
   game.physics.arcade.enable(baddie);
   baddie.body.collideWorldBounds = true;
-  baddie.body.gravity.y = 300;
+  baddie.body.gravity.y = 800;
+  baddie.animations.add('right', [1, 2], 10, true);
+  baddie.animations.add('left', [3, 4], 10, true);
 
   game.physics.arcade.enable(dirt);
   dirt.body.immovable= true;
@@ -40,12 +43,18 @@ function update() {
   baddie.body.velocity.x = 0;
   if (cursors.right.isDown){
     baddie.body.velocity.x = 150;
-  } 
+    baddie.animations.play('right');
+  } else 
   if (cursors.left.isDown){
     baddie.body.velocity.x = -150;
+    baddie.animations.play('left');
   } 
+   else {
+    baddie.animations.stop();
+    baddie.frame = 0;
+  }
   if (cursors.up.isDown && baddie.body.touching.down){
-    baddie.body.velocity.y = -150;
+    baddie.body.velocity.y = -450;
   }
 
   sky.tilePosition.x = -(game.camera.x * 0.22);
@@ -54,5 +63,4 @@ function update() {
   g2.tilePosition.x = -(game.camera.x * 0.6);
   g3.tilePosition.x = -(game.camera.x * 0.4);
   g4.tilePosition.x = -(game.camera.x * 0.2);
-
 }
